@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml">
-
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <title>Sistema de Estoque</title>
 <meta charset="UTF-8" />
@@ -41,7 +41,7 @@
 		<aside>
 			<nav class="sidebar sidebar-open">
 				<ul class="nav nav-pills">
-					<li class="nav-item"><a class="nav-link " href="/"> <i
+					<li class="nav-item"><a class="nav-link " href="/home"> <i
 							class="oi oi-home"></i> <span>Home</span>
 					</a></li>
 				</ul>
@@ -52,8 +52,8 @@
 						</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/produto/listar"> <i class="oi oi-spreadsheet"></i>
-							<span>Listar </span>
+						href="/produto/listar"> <i class="oi oi-spreadsheet"></i> <span>Listar
+						</span>
 					</a></li>
 				</ul>
 			</nav>
@@ -75,19 +75,20 @@
 			</nav>
 
 			<div class="container" id="cadastro">
-				<form action="/produto/salvar" method="POST">
+				<form th:action="@{/produto/salvar}" th:object="${produto}" method="POST">
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="nome">Produto</label> <input type="text"
 								class="form-control" id="nome" placeholder="Nome Produto"
-								autofocus="autofocus" name="nome" value="" />
+								autofocus="autofocus" th:field="*{nome}" />
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="nome">Quantidade</label> 
-							<input type="number" class="form-control" id="quantidade" placeholder="Quantidade de produtos"
-								autofocus="autofocus" name="quantidade" value="" />
+							<label for="nome">Quantidade</label> <input type="number"
+								class="form-control" id="quantidade"
+								placeholder="Quantidade de produtos" autofocus="autofocus"
+								name="quantidade"  value="" />
 						</div>
 					</div>
 					<input type="hidden" id="id" name="id" value="" />
@@ -100,8 +101,9 @@
 
 	<footer class="layout-footer">
 		<div class="container">
-			<span class="footer-copy">&copy; 2018 MBallem. Todos os
-				direitos reservados.</span>
+			<span class="footer-copy">&copy; 2020 - IFRN - Arquitetura de
+				Software</span>
+
 		</div>
 	</footer>
 	<!-- Bootstrap core JavaScript-->
