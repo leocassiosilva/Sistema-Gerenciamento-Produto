@@ -53,7 +53,6 @@ public class ProdutoController {
 		return "redirect:/produto/cadastrar";
 	}
 	
-	
 	@GetMapping("/excluir/{id}")
 	public String excluir (@PathVariable("id") Long id, ModelMap model) {
 		//service.excluir(id);
