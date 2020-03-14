@@ -19,7 +19,8 @@
 		</nav>
 
 		<div class="container" id="cadastro">
-			<form th:action="@{/produto/salvar}" th:object="${produto}"
+			<form th:action="${produto.id == null} ? @{/produto/salvar} : @{/produto/editar}" 
+			th:object="${produto}"
 				method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -36,7 +37,7 @@
 							name="quantidade" value="" />
 					</div>
 				</div>
-				<input type="hidden" id="id" name="id" value="" />
+				<input type="hidden" id="id" th:field="*{id}"/>
 				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
 			</form>
 		</div>
