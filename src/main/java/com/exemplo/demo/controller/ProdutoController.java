@@ -54,5 +54,10 @@ public class ProdutoController {
 	}
 	
 	
-
+	@GetMapping("/excluir/{id}")
+	public String excluir (@PathVariable("id") Long id, ModelMap model) {
+		//service.excluir(id);
+		return listar(model);
+	}
+	
 }
