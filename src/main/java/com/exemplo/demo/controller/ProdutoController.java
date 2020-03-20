@@ -1,8 +1,11 @@
 package com.exemplo.demo.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +37,12 @@ public class ProdutoController {
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Produto produto, RedirectAttributes attr) {
+	public String salvar(@Valid Produto produto, BindingResult result , RedirectAttributes attr) {
+		
+		if (result.hasErrors()) {
+			return "/produto/cadastrar";
+		}
+		
 		produtoService.salvar(produto);
 		attr.addFlashAttribute("success", "Produto inserido com sucesso.");
 		return "redirect:/produto/cadastrar";
@@ -48,7 +56,12 @@ public class ProdutoController {
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Produto produto, RedirectAttributes attr) {
+	public String editar(@Valid Produto produto, BindingResult result, RedirectAttributes attr) {
+		
+		if (result.hasErrors()) {
+			return "/produto/cadastrar";
+		}
+		
 		produtoService.editar(produto);
 		attr.addFlashAttribute("success", "Produto atualizado com sucesso.");
 		return "redirect:/produto/cadastrar";
