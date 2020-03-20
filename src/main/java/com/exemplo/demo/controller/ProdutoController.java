@@ -17,58 +17,52 @@ import com.exemplo.demo.service.ProdutoService;
 
 
 @Controller
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 	
-	
-	//Esse atributo vai ser usado quando o sevice for criado
 	@Autowired
 	private ProdutoService produtoService;
 	
+
 	@GetMapping("/cadastrar")
-	public String cadastrar (Produto produto) {
-		return"/produto/cadastrar";
+	public String cadastrar(Produto produto) {
+		return "/produto/cadastrar";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("produtos", produtoService.buscarTodos());
-		return "/produto/listar";
+		return "/produto/listar"; 
 	}
 	
-	
-	
-	
-	
 	@PostMapping("/salvar")
-	public String salvar(@Valid Produto produto, BindingResult result , RedirectAttributes attr) {
+	public String salvar(@Valid Produto produto, BindingResult result, RedirectAttributes attr) {
 		
 		if (result.hasErrors()) {
-			return "/produto/cadastrar";
+			return "/produto/cadastro";
 		}
 		
 		produtoService.salvar(produto);
-		attr.addFlashAttribute("success", "Produto inserido com sucesso.");
-		return "redirect:/produto/cadastrar";
-
+		attr.addFlashAttribute("success", "Cargo inserido com sucesso.");
+		return "redirect:/produtos/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("produto", produtoService.buscarPorId(id));
-		return "produto/cadastro";
+		return "produto/cadastrar";
 	}
 	
 	@PostMapping("/editar")
 	public String editar(@Valid Produto produto, BindingResult result, RedirectAttributes attr) {
 		
 		if (result.hasErrors()) {
-			return "/produto/cadastrar";
-		}
+			return "produto/cadastrar";
+		}	
 		
 		produtoService.editar(produto);
-		attr.addFlashAttribute("success", "Produto atualizado com sucesso.");
-		return "redirect:/produto/cadastrar";
+		attr.addFlashAttribute("success", "Registro atualizado com sucesso.");
+		return "redirect:/produtos/cadastrar";
 	}
 	
 	@GetMapping("/excluir/{id}")
