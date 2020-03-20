@@ -1,23 +1,26 @@
 package com.exemplo.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.exemplo.demo.domain.Produto;
+import com.exemplo.demo.service.ProdutoService;
 
-import groovyjarjarpicocli.CommandLine.Model;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 @RequestMapping("/produto")
 public class ProdutoController {
 	
 	
 	//Esse atributo vai ser usado quando o sevice for criado
-	//private ProdutoService service;
+	@Autowired
+	private ProdutoService produtoService;
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar (Produto produto) {
@@ -26,36 +29,34 @@ public class ProdutoController {
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		/*Essa linha abaixo vai precisar da classe service e do metodo buscar todos 
-		 * que ainda não foram implementados*/
-		//model.addAllAttributes("produtos", service.buscarTodos());
+		model.addAttribute("produtos", produtoService.buscarTodos());
 		return "/produto/listar";
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(Produto produto) {
-		/*Esse parte do serviço vai ser usada quando for criada 
-		 * a parte do service*/
-		//service.salvar(produto);
+	public String salvar(Produto produto, RedirectAttributes attr) {
+		produtoService.salvar(produto);
+		attr.addFlashAttribute("success", "Produto inserido com sucesso.");
 		return "redirect:/produdo/cadastrar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		/*Ainda falta a parte de service*/
-		//model.addAllAttributes("produto", service.buscarPorId(id));
+		model.addAttribute("produto", produtoService.buscarPorId(id));
 		return "produto/cadastro";
 	}
 	
 	@PostMapping("/editar")
-	public String editar(Produto produto) {
-		//service.editar(produto);
+	public String editar(Produto produto, RedirectAttributes attr) {
+		produtoService.editar(produto);
+		attr.addFlashAttribute("success", "Produto atualizado com sucesso.");
 		return "redirect:/produto/cadastrar";
 	}
 	
 	@GetMapping("/excluir/{id}")
-	public String excluir (@PathVariable("id") Long id, ModelMap model) {
-		//service.excluir(id);
+	public String excluir (@PathVariable("id") Long id, ModelMap model, RedirectAttributes attr) {
+		produtoService.excluir(id);
+		attr.addFlashAttribute("success", "Produto excluido com sucesso.");
 		return listar(model);
 	}
 	
