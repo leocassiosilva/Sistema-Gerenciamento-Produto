@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exemplo.demo.domain.Produto;
 import com.exemplo.demo.service.ProdutoService;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 @Controller
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -37,7 +37,8 @@ public class ProdutoController {
 	public String salvar(Produto produto, RedirectAttributes attr) {
 		produtoService.salvar(produto);
 		attr.addFlashAttribute("success", "Produto inserido com sucesso.");
-		return "redirect:/produdo/cadastrar";
+		return "redirect:/produto/cadastrar";
+
 	}
 	
 	@GetMapping("/editar/{id}")

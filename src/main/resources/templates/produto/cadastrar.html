@@ -20,8 +20,7 @@
 
 		<div class="container" id="cadastro">
 			<form th:action="${produto.id == null} ? @{/produto/salvar} : @{/produto/editar}" 
-			th:object="${produto}"
-				method="POST">
+			th:object="${produto}" 	method="POST">
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="nome">Produto</label> <input type="text"
