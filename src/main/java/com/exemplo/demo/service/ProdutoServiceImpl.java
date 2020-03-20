@@ -35,6 +35,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 		return dao.findById(id);
 	}
 
+	
 	@Override @Transactional(readOnly = true)
 	public List<Produto> buscarTodos() {
 		

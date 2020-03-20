@@ -20,10 +20,11 @@
 
 		<div class="container" id="cadastro">
 			<div th:replace="fragments/alert"></div>
-
-			<form
-				th:action="${produto.id == null} ? @{/produto/salvar} : @{/produto/editar}"
-				th:object="${produto}" method="POST">
+				
+				<form th:action="${produto.id == null} ? @{/produto/salvar} : @{/produto/editar}" 
+	                  th:object="${produto}" method="POST">
+				
+				
 				<div th:replace="fragments/validacao :: validacao"></div>
 
 				<div class="form-row">
