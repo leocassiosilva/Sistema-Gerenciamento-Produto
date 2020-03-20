@@ -1,6 +1,7 @@
 package com.exemplo.demo.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,15 +18,16 @@ public class Produto extends AbstractEntity<Long> {
 	private String nome;
 	
 	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @NotNull(message = "Quantidade é obrigatoria.")
-	private long quantidade;
+    @NotNull
+    @Digits(integer = 5, fraction = 0)
+    @Column(nullable = false, length = 6)
+	private Integer quantidade;
 
 	public String getNome() {
 		return nome;
 	}
 
-	public long getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
@@ -33,7 +35,7 @@ public class Produto extends AbstractEntity<Long> {
 		this.nome = nome;
 	}
 
-	public void setQuantidade(long quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 }
